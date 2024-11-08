@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Verification</title>
+  </head>
+  <body>
+    <h1>Upload PDF for Verification</h1>
+    <form
+      action="{% url 'verify_pdf' %}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <label for="file">Select PDF file:</label>
+      <input type="file" name="file" id="file" required />
+      <br /><br />
+      <label for="password">Password (optional):</label>
+      <input type="text" name="password" id="password" />
+      <br /><br />
+      <button type="submit">Verify PDF</button>
+    </form>
+    {% if result %}
+    <h2>Verification Result:</h2>
+    <pre>{{ result|pprint|safe }}</pre>
+    {% endif %}
+  </body>
+</html>
